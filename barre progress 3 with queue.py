@@ -22,6 +22,7 @@ class App(tk.Tk):
         self.button.config(state="disabled")
         self.thread = ThreadedClient(self.queue)
         self.thread.start()
+        #self.thread.run()
         self.periodiccall()
     def periodiccall(self):
         self.checkqueue()
@@ -43,12 +44,13 @@ class ThreadedClient(threading.Thread):
     def __init__(self, queue):
         threading.Thread.__init__(self)
         self.queue = queue 
+        
     def run(self):
         for x in xrange(1, 5):
             time.sleep(2)
             msg = "Function %s finished..." % x
             self.queue.put(msg)
-
+            
 
 app = App()
 app.mainloop()
